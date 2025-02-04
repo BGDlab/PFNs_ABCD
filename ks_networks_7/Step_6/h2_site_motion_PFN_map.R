@@ -33,7 +33,50 @@ for (vert in c(1:1010004)) {
 }
 write.csv(PFN_h2_all, file = "All_PFN_site_motion_h2_pvals.csv") #save out all h2 values and pvals with zeros
 
-#take highest h2 value across 17 networks for each vertex
+
+# INDIVIDUAL h2 PFN MAPS
+for (PFN in c(1:17))
+{
+  #assign sig h2 and log10_pNoA_fdr for 1 of the 17 networks
+  PFN_h2 <- matrix(0,59412,2)
+  for (i in c(1:59412)) {
+    if (PFN_h2_all[i+(PFN-1)*59412,3] > 1.30103) {
+      PFN_h2[i,1] <- PFN_h2_all[i+(PFN-1)*59412,2]
+      PFN_h2[i,2] <-PFN_h2_all[i+(PFN-1)*59412,3]
+    }
+  }
+  write.csv(PFN_h2, file = paste0("PFN_",PFN,"_site_motion_h2_pvals.csv")) #save out all h2 values and pvals with zeros
+  
+  #assign averaged weights to left hemi
+  vertex_weights_lh <- matrix(0,29696,1)
+  for (i in c(1:29696)) {
+    vertex_weights_lh[i,1] <- PFN_h2[i,1]
+  }
+  
+  #assign averaged weights to right hemi
+  vertex_weights_rh <- matrix(0,29716,1)
+  for (i in c(1:29716)) {
+    vertex_weights_rh[i,1] <- PFN_h2[i+29696,1]
+  }
+  
+  #define map variable using hard parcel cifti file
+  Weight_map <- PFNs_hardparcel
+  
+  #assign weight values into hard parcel
+  Weight_map$data$cortex_left <- vertex_weights_lh
+  Weight_map$data$cortex_right <- vertex_weights_rh
+  
+  #add back in medial wall
+  Weight_map_med <- move_from_mwall(Weight_map)
+  
+  #define output file for h2 map
+  outfile <- paste0("./",dirout,'PFN',PFN,'_site_motion_h2')
+  
+  #save out cifti files
+  write_cifti(Weight_map_med,outfile)
+}
+
+#MAX h2 value across 17 networks for each vertex
 PFN_h2_top <- matrix(0,59412,2)
 for (vert in c(1:59412)) {
   top_h2_tracker = 0 #set h2 tracker to 0
