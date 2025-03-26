@@ -3,7 +3,7 @@ import sys
 import time
 import numpy as np
 """
-syntex:  python submit_all_null_1000_ks.py <mmddyyX> X=letter from A-J (10 jobs)
+syntax:  python submit_all_null_1000_ks.py <mmddyyX> X=letter from A-J (10 jobs)
 
 *****  this is only run network all null  *****
 
@@ -24,11 +24,6 @@ os.makedirs(sge_dir,exist_ok=True)  # Create the output dir if it doesn't exist
 
 networks = np.array(['all']) 
 network = 'all'
-
-# submut_ks.py has processed the preprocess_ks.py for all.  Here don't need to run again. If not, uncomment lines 32 & 33.
-# following call preprocess_ks.py is moved from ks_proc_predict.py to avoid repeating for each outcome run which causes the processor to die due to system resource issues.
-#print('python {0}/preprocess_ks.py {1} {2}'.format(homedir,network,tmpdir))
-#os.system('python {0}/preprocess_ks.py {1} {2}'.format(homedir,network,tmpdir))
 
 GB = '400G'
 
