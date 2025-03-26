@@ -2,7 +2,7 @@ import sys
 import os
 
 homedir = sys.argv[1]  #'/cbica/projects/PFN_ABCD/scripts/ridge/Step_2/ridge_matchedsamples'
-tmpdir = sys.argv[2]   #'/cbica/projects/PFN_ABCD/scripts/ridge/Step_2/ridge_matchedsamples/tempfiles_matchedsamples_mmddyyX'
+tmpdir = sys.argv[2]   #'/cbica/projects/PFN_ABCD/scripts/ridge/Step_2/ridge_matchedsamples/tempfiles_matchedsamples_mmddyy'
 network = sys.argv[3]  # all
 phenotype_name = sys.argv[4]   # PRS
 dirdate = sys.argv[5]   # the date as mmddyyX
