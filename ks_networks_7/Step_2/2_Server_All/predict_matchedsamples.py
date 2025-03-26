@@ -72,11 +72,11 @@ nuisance_B=np.squeeze(nuisance_B)
 # First train on group A and test on group B:
 nuisance_model = LinearRegression() #make the nuisance model object
 nuisance_model.fit(nuisance_A,x_A) #fit the nuisance_model to training data
-x_A = x_A - nuisance_model.predict(nuisance_A) #remove nuisance from training data
-x_B = x_B - nuisance_model.predict(nuisance_B) #remove nuisance from test data
+x_A_resid = x_A - nuisance_model.predict(nuisance_A) #remove nuisance from training data
+x_B_resid = x_B - nuisance_model.predict(nuisance_B) #remove nuisance from test data
 m = RidgeCV(alphas=(1,10,100,500,1000,5000,10000,15000,20000)) #make the actual ridge model object, adding some super high reg strengths because we have so many features
-m.fit(x_A,y_A) # fit the ridge model
-predicted_y_B = m.predict(x_B) #apply the trained model to the test data
+m.fit(x_A_resid,y_A) # fit the ridge model
+predicted_y_B = m.predict(x_B_resid) #apply the trained model to the test data
 coefs = m.coef_.astype(np.float16)
 alphas = m.alpha_
 
@@ -88,11 +88,11 @@ np.save('{0}/{1}_alphas_testB.npy'.format(output_dir,phenotype_name),alphas)
 # Then train on group B and test on group A:
 nuisance_model = LinearRegression() #make the nuisance model object
 nuisance_model.fit(nuisance_B,x_B) #fit the nuisance_model to training data
-x_B = x_B - nuisance_model.predict(nuisance_B) #remove nuisance from training data
-x_A = x_A - nuisance_model.predict(nuisance_A) #remove nuisance from test data
+x_B_resid = x_B - nuisance_model.predict(nuisance_B) #remove nuisance from training data
+x_A_resid = x_A - nuisance_model.predict(nuisance_A) #remove nuisance from test data
 m = RidgeCV(alphas=(1,10,100,500,1000,5000,10000,15000,20000)) #make the actual ridge model object, adding some super high reg strengths because we have so many features
-m.fit(x_B,y_B) # fit the ridge model
-predicted_y_A = m.predict(x_A) #apply the trained model to the test data
+m.fit(x_B_resid,y_B) # fit the ridge model
+predicted_y_A = m.predict(x_A_resid) #apply the trained model to the test data
 coefs = m.coef_.astype(np.float16)
 alphas = m.alpha_
 
