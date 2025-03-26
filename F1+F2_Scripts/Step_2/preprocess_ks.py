@@ -12,10 +12,9 @@ subjects: path to subjects!
 data_path: path to the actual features
 phenotypes: path to a csv with the to-be-predicted and the noise
 
-Need to update data_path and make sure data_for_ridge_ks_psych_F1_F2_Exp_all.csv in the current running directory
 """
-data_path ='/cbica/projects/PFN_ABCD/input_files/{0}/IndividualParcel_Final_sbj1_comp17_alphaS21_1_alphaL300_vxInfo1_ard0_eta0/final_UV.mat'
-control =['sex','meanFD','abcd_site','interview_age']
+data_path ='/cbica/projects/PFN_ABCD/input_files/{0}/IndividualParcel_Final_sbj1_comp17_alphaS21_1_alphaL300_vxInfo1_ard0_eta0/final_UV.mat' # feature path
+control =['sex','meanFD','abcd_site','interview_age'] # covariate variable names
 try: network = int(sys.argv[1])
 except: network = sys.argv[1]
 outdir = sys.argv[2]   #tmpdir
@@ -23,7 +22,7 @@ os.makedirs(outdir,exist_ok=True)
 """
 load the subject measures 
 """
-phenotypes = pd.read_csv('./data_for_ridge_PRS.csv') #load
+phenotypes = pd.read_csv('./data_for_ridge_PRS.csv') #load covariate and outcome data
 #phenotypes['subjectkey'] = np.core.defchararray.strip(phenotypes.subjectkey.values.astype(str),'NDAR_') #strip
 phenotypes = phenotypes.sort_values('subjectkey') #sort 
 phenotypes['meanFD'] = phenotypes['meanFD'].values.astype(np.float16) #saves space
