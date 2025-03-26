@@ -22,11 +22,6 @@ os.makedirs(sge_dir,exist_ok=True)  # Create the output dir if it doesn't exist
 networks = np.array(['all']) 
 network = 'all'
 
-# submit_ks.py has already run preprocess_ks.py for all networks, so don't need to run again here. If still needed to run, uncomment lines 32 & 33.
-# following call preprocess_ks.py is moved from ks_proc_predict.py to avoid repeating for each outcome run which causes the processor to die due to system resource issues.
-#print('python {0}/preprocess_ks.py {1} {2}'.format(homedir,network,tmpdir))
-#os.system('python {0}/preprocess_ks.py {1} {2}'.format(homedir,network,tmpdir))
-
 GB = '200G'
 
 for outcome in ['PRS_1','PRS_2']:
