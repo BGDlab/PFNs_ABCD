@@ -63,7 +63,7 @@ for (catg in c('PRS_1','PRS_2')) {
         }
         sum_of_weights_ABS_nulls[vert,count] <- sum_of_weights_ABS_nulls[vert,count] + summed_abs_weights # assign abs SOW to matrix
         
-        if (sum_of_weights_ABS_nulls[vert,count] > sum_of_weights_actual[vert,2])
+        if (sum_of_weights_ABS_nulls[vert,count] >= sum_of_weights_actual[vert,2])
         {
           p_counter_ABS[vert,1] <- p_counter_ABS[vert,1] + 1  
         }
