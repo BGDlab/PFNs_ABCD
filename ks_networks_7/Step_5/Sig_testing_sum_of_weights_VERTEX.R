@@ -62,7 +62,7 @@ for (dir in c('A','B','C','D','E','F','G','H','I','J')) { #cycle through 10 dire
       }
       sum_of_weights_ABS_nulls[vert,count] <- sum_of_weights_ABS_nulls[vert,count] + summed_abs_weights # assign abs SOW to matrix
       
-      if (sum_of_weights_ABS_nulls[vert,count] > sum_of_weights_actual[vert,2])
+      if (sum_of_weights_ABS_nulls[vert,count] >= sum_of_weights_actual[vert,2])
       {
         p_counter_ABS[vert,1] <- p_counter_ABS[vert,1] + 1  
       }

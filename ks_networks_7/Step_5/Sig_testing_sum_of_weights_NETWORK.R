@@ -64,11 +64,11 @@ for (dir in c('A','B','C','D','E','F','G','H','I','J')) { #cycle through 10 dire
         sum_of_weights_NET_nulls[PFN,count] <- sum_of_weights_NET_nulls[PFN,count] + all_weights_avg[vert,PFN] #NET
         sum_of_weights_ABS_nulls[PFN,count] <- sum_of_weights_ABS_nulls[PFN,count] + abs(all_weights_avg[vert,PFN]) #ABS
       }
-      if (abs(sum_of_weights_NET_nulls[PFN,count]) > abs(sum_of_weights_actual[PFN,2]))
+      if (abs(sum_of_weights_NET_nulls[PFN,count]) >= abs(sum_of_weights_actual[PFN,2]))
       {
         p_counter_NET[PFN,1] <- p_counter_NET[PFN,1] + 1  
       }
-      if (sum_of_weights_ABS_nulls[PFN,count] > sum_of_weights_actual[PFN,3])
+      if (sum_of_weights_ABS_nulls[PFN,count] >= sum_of_weights_actual[PFN,3])
       {
         p_counter_ABS[PFN,1] <- p_counter_ABS[PFN,1] + 1  
       }
@@ -140,11 +140,11 @@ for (grp in c('A','B')) {
           sum_of_weights_NET_nulls[PFN,count] <- sum_of_weights_NET_nulls[PFN,count] + all_weights[vert,PFN] #NET
           sum_of_weights_ABS_nulls[PFN,count] <- sum_of_weights_ABS_nulls[PFN,count] + abs(all_weights[vert,PFN]) #ABS
         }
-        if (abs(sum_of_weights_NET_nulls[PFN,count]) > abs(sum_of_weights_actual[PFN,2]))
+        if (abs(sum_of_weights_NET_nulls[PFN,count]) >= abs(sum_of_weights_actual[PFN,2]))
         {
           p_counter_NET[PFN,1] <- p_counter_NET[PFN,1] + 1  
         }
-        if (sum_of_weights_ABS_nulls[PFN,count] > sum_of_weights_actual[PFN,3])
+        if (sum_of_weights_ABS_nulls[PFN,count] >= sum_of_weights_actual[PFN,3])
         {
           p_counter_ABS[PFN,1] <- p_counter_ABS[PFN,1] + 1  
         }
