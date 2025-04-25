@@ -52,39 +52,39 @@ p_counter <- matrix(1,9,1)
 rownames(p_counter) <- c('GP_F1','GP_F2','GP_SA','GP_AB','F1_F2','F1_SA','F1_AB','F2_SA','F2_AB')
 
 for (fold in 1:1000) {
-  if (GP_F1_null[fold] > GP_F1_act)
+  if (GP_F1_null[fold] >= GP_F1_act)
   {
     p_counter[1,1] <- p_counter[1,1] + 1  
   }
-  if (GP_F2_null[fold] > GP_F2_act)
+  if (GP_F2_null[fold] >= GP_F2_act)
   {
     p_counter[2,1] <- p_counter[2,1] + 1  
   }
-  if (GP_SA_null[fold] > GP_SA_act)
+  if (GP_SA_null[fold] >= GP_SA_act)
   {
     p_counter[3,1] <- p_counter[3,1] + 1  
   }
-  if (GP_AB_null[fold] > GP_AB_act)
+  if (GP_AB_null[fold] >= GP_AB_act)
   {
     p_counter[4,1] <- p_counter[4,1] + 1  
   }
-  if (F1_F2_null[fold] > F1_F2_act)
+  if (F1_F2_null[fold] >= F1_F2_act)
   {
     p_counter[5,1] <- p_counter[5,1] + 1  
   }
-  if (F1_SA_null[fold] > F1_SA_act)
+  if (F1_SA_null[fold] >= F1_SA_act)
   {
     p_counter[6,1] <- p_counter[6,1] + 1  
   }
-  if (F1_AB_null[fold] > F1_AB_act)
+  if (F1_AB_null[fold] >= F1_AB_act)
   {
     p_counter[7,1] <- p_counter[7,1] + 1  
   }
-  if (F2_SA_null[fold] > F2_SA_act)
+  if (F2_SA_null[fold] >= F2_SA_act)
   {
     p_counter[8,1] <- p_counter[8,1] + 1  
   }
-  if (F2_AB_null[fold] > F2_AB_act)
+  if (F2_AB_null[fold] >= F2_AB_act)
   {
     p_counter[9,1] <- p_counter[9,1] + 1  
   }
