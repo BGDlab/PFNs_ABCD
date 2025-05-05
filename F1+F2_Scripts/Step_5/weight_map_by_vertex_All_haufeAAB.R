@@ -130,6 +130,7 @@ for (catg in c('PRS_1','PRS_2')){
       summed_weights[i] <- summed_weights[i]+abs_avg_weights[i+(f-1)*59412]
     }
   }
+  #write.csv(summed_weights,file = paste0(dirout,catg,"_vertex_ABS_sum_Haufe_weights.csv"))
   
   #assign summed weights to left hemi
   vertex_weights_lh <- matrix(0,29696,1)
@@ -160,7 +161,51 @@ for (catg in c('PRS_1','PRS_2')){
   #write_cifti(Weight_map_med,outfile)
   
   
+  
+  #SIG ONLY (TFCE corrected)
+  dirout <- "weight_maps_HaufeAAB/sig_testing/"
+  sig_weights <- read.csv(paste0(dirout,catg,"_TFCE_p_vals.csv"))
+  
+  #Only take summed weight if sig
+  sig_summed_weights <- matrix(0,59412)
+  for (i in c(1:59412)) {
+    if (sig_weights[i,1] < 0.05) {
+      sig_summed_weights[i] <- summed_weights[i]
+    }
+  }
+  write.csv(sig_summed_weights,file = paste0(dirout,catg,"_vertex_ABS_sum_Haufe_weights_sig_only_TFCE.csv"))
+  
+  #assign sig summed weights to left hemi
+  vertex_weights_lh <- matrix(0,29696,1)
+  for (i in c(1:29696)) {
+    vertex_weights_lh[i,1] <- sig_summed_weights[i]
+  }
+  
+  #assign sig summed weights to right hemi
+  vertex_weights_rh <- matrix(0,29716,1)
+  for (i in c(1:29716)) {
+    vertex_weights_rh[i,1] <- sig_summed_weights[i+29696]
+  }
+  
+  #define map variable using hard parcel cifti file
+  Weight_map <- PFNs_hardparcel
+  
+  #assign weight values into hard parcel
+  Weight_map$data$cortex_left <- vertex_weights_lh
+  Weight_map$data$cortex_right <- vertex_weights_rh
+  
+  #add back in medial wall
+  Weight_map_med <- move_from_mwall(Weight_map)
+  
+  #define output file for averaged map
+  outfile <- paste0("./",dirout,catg,'_SIG_TFCE_Weight_haufetrans_all_AVG_FIRST')
+  
+  #save out cifti files
+  write_cifti(Weight_map_med,outfile)
+  
+  
   #AVERAGED INDIVIDUAL PFN MAPS
+  dirout <- "weight_maps_HaufeAAB/"
   for (net in c(1:17))
   {
     #assign averaged weights for 1 of the 17 networks
@@ -198,7 +243,6 @@ for (catg in c('PRS_1','PRS_2')){
     #write_cifti(Weight_map_med,outfile)
   }
 }
-
 
 #TOP 1% OF SUMMED WEIGHTS AFTER AVERAGING FIRST
 dirout <- "top%_Weights_HaufeAAB/"
@@ -287,7 +331,6 @@ for (catg in c('PRS_1','PRS_2')){
   #save out cifti files
   write_cifti(Weight_map_med,outfile)
 }
-
 
 
 #TOP 5% OF SUMMED WEIGHTS AFTER AVERAGING FIRST
